@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Top 10 Major Cities in the US</title>
+    <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.css" />
+    <script src="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.js"></script>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: Arial, sans-serif;
+        }
+        #map {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+    <script>
+        const map = new maplibregl.Map({
+            container: 'map',
+            style: 'https://demotiles.maplibre.org/style.json', // Open-source map style
+            center: [-98.5795, 39.8283], // Center of the US
+            zoom: 4
+        });
+
+        const cities = [
+            { name: 'New York City, New York', lat: 40.7128, lng: -74.0060, rank: 1 },
+            { name: 'Los Angeles, California', lat: 34.0522, lng: -118.2437, rank: 2 },
+            { name: 'Chicago, Illinois', lat: 41.8781, lng: -87.6298, rank: 3 },
+            { name: 'Houston, Texas', lat: 29.7604, lng: -95.3698, rank: 4 },
+            { name: 'Phoenix, Arizona', lat: 33.4484, lng: -112.0740, rank: 5 },
+            { name: 'Philadelphia, Pennsylvania', lat: 39.9526, lng: -75.1652, rank: 6 },
+            { name: 'San Antonio, Texas', lat: 29.4241, lng: -98.4936, rank: 7 },
+            { name: 'San Diego, California', lat: 32.7157, lng: -117.1611, rank: 8 },
+            { name: 'Dallas, Texas', lat: 32.7767, lng: -96.7970, rank: 9 },
+            { name: 'San Jose, California', lat: 37.3382, lng: -121.8863, rank: 10 }
+        ];
+
+        map.on('load', function () {
+            cities.forEach(city => {
+                const marker = new maplibregl.Marker()
+                    .setLngLat([city.lng, city.lat])
+                    .setPopup(new maplibregl.Popup().setHTML(`<h3>${city.rank}. ${city.name}</h3>`))
+                    .addTo(map);
+            });
+        });
+    </script>
+</body>
+</html>
